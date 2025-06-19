@@ -10,4 +10,4 @@ chroma_langchain_db/
 chroma.sqlite3
 
 # frontend dependencies
-frontend/node_modules/
+node_modules/

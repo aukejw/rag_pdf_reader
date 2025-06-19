@@ -2,10 +2,6 @@
 
 ## Targets 
 
-# Sets up a virtual environment and activates it
-setup:
-	uv sync --group=dev
-
 # Run pytests
 test:
 	uv run pytest --cov-report=term-missing --cov-report=html && uv run coverage html
@@ -14,7 +10,7 @@ test:
 
 # Install dependencies
 install-backend:
-	cd backend && uv pip install fastapi uvicorn python-multipart
+	uv sync --group=dev
 
 install-frontend:
 	cd frontend && npm install
@@ -23,7 +19,7 @@ install: install-backend install-frontend
 
 # Start services
 start-backend:
-	cd backend && uvicorn main:app --reload --port 8000
+	cd pdf_reader && uvicorn main:app --reload --port 8000
 
 start-frontend:
 	cd frontend && npm run dev
