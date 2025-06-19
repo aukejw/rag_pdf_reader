@@ -12,13 +12,19 @@ To better understand the failures, we provide a simple workflow:
 
 ## Installation
 
-You will need [uv](https://github.com/astral-sh/uv):
+You will need 
 
+- [uv](https://github.com/astral-sh/uv):
+- nvm
+
+First, install dependencies:
 ```
-make setup
+make install
 ```
 
-To run the application in development mode, use 
+To run the application in development mode, use:
 ```
 make dev
 ```
+
+This will start frontend and backend, and will show the address and port in terminal.
