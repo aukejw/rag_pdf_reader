@@ -1,0 +1,13 @@
+{
+  "generation_model_config": {
+    "model_id": "gemma3:4b-it-qat",
+    "seed": 0,
+    "temperature": 0,
+    "num_ctx": 2048,
+    "num_predict": 1024
+  },
+  "retrieval_prompt_template": "You are a question-answering assistant. Use the Context to answer the Question. Be concise! Answer in the same language as the question.\n\nContext: {context_string}\nQuestion: {question}\nAnswer: ",
+  "location_prompt_template": "Which Sentence from the Context led to the Answer? Repeat it verbatim, without quotes. If there is no relevant Sentence in the Context, respond with 'N/A'. \n\nSentence: ",
+  "vector_store_path": "./chroma_langchain_db",
+  "embedding_model_id": "qwen3:8b"
+}
