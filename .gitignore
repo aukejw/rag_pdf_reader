@@ -1,0 +1,13 @@
+# backend
+*.pyc
+__pycache__/
+.venv/
+.DS_Store
+.vscode
+
+# vector stores
+chroma_langchain_db/
+chroma.sqlite3
+
+# frontend dependencies
+frontend/node_modules/
