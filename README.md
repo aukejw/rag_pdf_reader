@@ -14,8 +14,9 @@ To better understand the failures, we provide a simple workflow:
 
 You will need 
 
-- [uv](https://github.com/astral-sh/uv):
-- nvm
+- [uv](https://github.com/astral-sh/uv) for backend dependencies
+- nvm for frontend dependencies
+- make, if you want to use the Makefile
 
 First, install dependencies:
 ```
