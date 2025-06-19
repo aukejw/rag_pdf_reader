@@ -1,0 +1,361 @@
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    padding: 0.5rem 1rem;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 48px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    white-space: nowrap;
+}
+
+.upload-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.main-layout {
+    display: flex;
+    flex: 1 1 0%;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.pdf-section {
+    flex: 1;
+    padding: 0.5rem;
+    overflow: auto;
+    min-width: 0;
+}
+
+.gutter {
+    width: 6px;
+    cursor: col-resize;
+    background: #eee;
+    transition: background 0.2s;
+    z-index: 10;
+}
+
+.gutter:hover {
+    background: #ccc;
+}
+
+.chat-section {
+    width: 400px;
+    min-width: 250px;
+    max-width: 700px;
+    border-left: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.chat-messages {
+    flex: 1 1 0%;
+    height: 100%;
+    overflow-y: scroll;
+    padding: 0.5rem;
+    min-height: 0;
+    max-height: 100%;
+    scrollbar-gutter: stable;
+}
+
+.chat-input {
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 0.5rem;
+}
+
+.message {
+    margin-bottom: 0.4rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    font-size: 0.97em;
+}
+
+.question {
+    font-weight: bold;
+    margin-bottom: 0.08rem;
+    font-size: 1em;
+}
+
+.answer {
+    font-size: 0.97em;
+    margin-bottom: 0.08rem;
+    margin-top: 0;
+    padding-left: 0;
+    text-align: left;
+}
+
+.relevant-text {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.relevant-text-text {
+    outline: 2px solid #ffeb3b;
+    outline-offset: 2px;
+    border-radius: 2px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.relevant-text-text:hover {
+    outline-color: #fdd835;
+}
+
+.error {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+.highlight {
+    outline: 2px solid #ffeb3b;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.highlight:hover {
+    outline-color: #fdd835;
+}
+
+/* Remove pink selection color */
+.react-pdf__Page__textContent span {
+    color: transparent !important;
+    background: none !important;
+}
+
+/* Keep the highlight outline */
+.highlight {
+    outline: 2px solid #ffeb3b;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.relevant-text {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.relevant-text-text {
+    outline: 2px solid #ffeb3b;
+    outline-offset: 2px;
+    border-radius: 2px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.relevant-text-text:hover {
+    outline-color: #fdd835;
+}
+
+.inspect-box {
+    margin-top: 0.2rem;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.92em;
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.context-list {
+    max-height: 180px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    background: #fff;
+    margin-top: 0.5em;
+    padding: 0.5em;
+}
+
+.context-chunk {
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.context-chunk:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.context-tabs {
+    display: flex;
+    gap: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.context-tab {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 3px 3px 0 0;
+    padding: 0.25em 0.75em;
+    cursor: pointer;
+    font-size: 0.95em;
+    outline: none;
+    transition: background 0.2s, border 0.2s;
+}
+
+.context-tab.active,
+.context-tab:hover {
+    background: #fff;
+    border-bottom: 1px solid #fff;
+    font-weight: bold;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+    padding: 2em 2.5em 1.5em 2.5em;
+    min-width: 480px;
+    max-width: 700px;
+    width: 520px;
+    box-sizing: border-box;
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 1em;
+}
+
+.modal input {
+    width: 100%;
+    padding: 0.4em;
+    margin-top: 0.2em;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1em;
+}
+
+.success {
+    color: #15803d;
+    margin-bottom: 1em;
+}
+
+.settings-row {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-bottom: 1em;
+}
+
+.settings-row label {
+    margin-bottom: 0;
+    flex: 0 0 180px;
+    font-weight: 500;
+}
+
+.settings-row input[type="text"] {
+    flex: 1 1 auto;
+    margin-top: 0;
+}
+
+.settings-row,
+.settings-entry {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.settings-row:last-child,
+.settings-entry:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.modal label {
+    border-bottom: none;
+    margin-bottom: 0.5em;
+    padding-bottom: 0;
+}
+
+.message-actions {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.15em;
+    align-items: center;
+}
+
+.message-actions button {
+    background: none;
+    border: none;
+    padding: 0.15em 0.15em;
+    margin: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.message-actions button svg {
+    width: 18px;
+    height: 18px;
+}

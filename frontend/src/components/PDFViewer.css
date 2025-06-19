@@ -1,0 +1,54 @@
+.highlight {
+    background: yellow;
+    color: black;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+.pdf-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    margin: 16px 0 0 0;
+    padding: 10px 18px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.pdf-controls button {
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 6px 18px;
+    font-size: 1em;
+    color: #374151;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    transition: background 0.15s, border 0.15s, color 0.15s;
+}
+
+.pdf-controls button:disabled {
+    background: #f3f4f6;
+    color: #b0b3b8;
+    border: 1px solid #e5e7eb;
+    cursor: not-allowed;
+}
+
+.pdf-controls button:not(:disabled):hover {
+    background: #e0e7ff;
+    border: 1px solid #6366f1;
+    color: #3730a3;
+}
+
+.pdf-controls span {
+    font-weight: 500;
+    color: #6366f1;
+    background: #eef2ff;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 1.05em;
+    letter-spacing: 0.01em;
+    box-shadow: 0 1px 2px rgba(99, 102, 241, 0.04);
+}
