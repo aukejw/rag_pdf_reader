@@ -19,7 +19,7 @@ install: install-backend install-frontend
 
 # Start services
 start-backend:
-	cd pdf_reader && uvicorn main:app --reload --port 8000
+	cd pdf_reader && uv run uvicorn main:app --reload --port 8000
 
 start-frontend:
 	cd frontend && npm run dev
