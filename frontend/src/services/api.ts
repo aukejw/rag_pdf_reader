@@ -4,21 +4,28 @@ export interface Question {
     text: string;
 }
 
-export interface ContextChunk {
+export interface RetrievedDocument {
     content: string;
+    metadata: { page?: number };
     relevance_score: number;
 }
 
-export interface RelevantText {
-    text: string;
+export interface Localization {
+    relevant_text: string;
     page_index: number;
     chunk_index?: number;
 }
 
+export interface Evaluation {
+    is_correct: boolean;
+    evaluation: string;
+}
+
 export interface Answer {
     answer: string;
-    relevant_text: RelevantText;
-    context: ContextChunk[];
+    localization: Localization;
+    context: RetrievedDocument[];
+    evaluation: Evaluation;
 }
 
 export const uploadPDF = async (file: File): Promise<void> => {
