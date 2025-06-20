@@ -9,10 +9,6 @@ export const App: React.FC = () => {
     const [file, setFile] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isUploading, setIsUploading] = useState(false);
-    const [highlightText, setHighlightText] = useState<string | null>(null);
-    const [highlightPageIndex, setHighlightPageIndex] = useState<number | null>(null);
-    const [highlightStart, setHighlightStart] = useState<number | null>(null);
-    const [highlightEnd, setHighlightEnd] = useState<number | null>(null);
     const [chatWidth, setChatWidth] = useState(400);
     const [settingsOpen, setSettingsOpen] = useState(false);
     const dragging = useRef(false);
@@ -33,20 +29,6 @@ export const App: React.FC = () => {
         } finally {
             setIsUploading(false);
         }
-    };
-
-    const handleHighlightText = (
-        text: string,
-        _chunkIndex?: number,
-        _charStart?: number,
-        pageIndex?: number,
-        startOfRelevantText?: number,
-        endOfRelevantText?: number
-    ) => {
-        setHighlightText(text);
-        setHighlightPageIndex(pageIndex !== undefined && pageIndex !== -1 ? pageIndex : null);
-        setHighlightStart(startOfRelevantText !== undefined && startOfRelevantText !== -1 ? startOfRelevantText : null);
-        setHighlightEnd(endOfRelevantText !== undefined && endOfRelevantText !== -1 ? endOfRelevantText : null);
     };
 
     // Gutter drag logic
@@ -102,10 +84,6 @@ export const App: React.FC = () => {
                 <div className="pdf-section">
                     <PDFViewer
                         file={file}
-                        highlightText={highlightText || undefined}
-                        highlightPageIndex={highlightPageIndex ?? undefined}
-                        highlightStart={highlightStart ?? undefined}
-                        highlightEnd={highlightEnd ?? undefined}
                     />
                 </div>
                 <div
@@ -117,7 +95,7 @@ export const App: React.FC = () => {
                     className="chat-section"
                     style={{ width: chatWidth }}
                 >
-                    <Chat onHighlightText={handleHighlightText} />
+                    <Chat />
                 </div>
             </div>
             <SettingsModal open={settingsOpen} onClose={() => setSettingsOpen(false)} />

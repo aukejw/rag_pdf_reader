@@ -9,64 +9,15 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 interface PDFViewerProps {
     file: File | null;
-    highlightText?: string;
-    highlightPageIndex?: number;
 }
 
-export const PDFViewer: React.FC<PDFViewerProps> = ({ file, highlightText, highlightPageIndex }) => {
+export const PDFViewer: React.FC<PDFViewerProps> = ({ file }) => {
     const [numPages, setNumPages] = useState<number | null>(null);
     const [pageNumber, setPageNumber] = useState(1);
     const [scale, setScale] = useState(1.0);
     const minScale = 0.5;
     const maxScale = 2.5;
     const scaleStep = 0.1;
-
-    useEffect(() => {
-        // If we have a page index, go to that page (pageIndex is 0-based, setPageNumber is 1-based)
-        if (highlightPageIndex !== undefined && highlightPageIndex !== null && file) {
-            setPageNumber(highlightPageIndex + 1);
-        }
-    }, [highlightPageIndex, file]);
-
-    // Best-effort highlight: highlight from first to last word of highlightText
-    useEffect(() => {
-        if (highlightText) {
-            const normalize = (s: string) => s.replace(/\s+/g, ' ').trim().toLowerCase();
-            const words = highlightText.match(/\b\w+\b/g);
-            if (!words || words.length === 0) return;
-            const firstWord = normalize(words[0]);
-            const lastWord = normalize(words[words.length - 1]);
-            const textLayer = document.querySelector('.react-pdf__Page__textContent');
-            if (textLayer) {
-                const spans = Array.from(textLayer.querySelectorAll('span'));
-                let firstIdx = -1;
-                let lastIdx = -1;
-                spans.forEach((span, i) => {
-                    const norm = normalize(span.textContent || '');
-                    if (firstIdx === -1 && norm.includes(firstWord)) firstIdx = i;
-                    if (norm.includes(lastWord)) lastIdx = i;
-                });
-                spans.forEach((span, i) => {
-                    span.classList.remove('highlight');
-                    if (
-                        (firstIdx !== -1 && lastIdx !== -1 && i >= firstIdx && i <= lastIdx) ||
-                        (firstIdx !== -1 && lastIdx === -1 && i === firstIdx) ||
-                        (lastIdx !== -1 && firstIdx === -1 && i === lastIdx)
-                    ) {
-                        span.classList.add('highlight');
-                        if (i === firstIdx) span.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                });
-            }
-        } else {
-            // Remove highlight if no highlightText
-            const textLayer = document.querySelector('.react-pdf__Page__textContent');
-            if (textLayer) {
-                const spans = textLayer.querySelectorAll('span');
-                spans.forEach(span => span.classList.remove('highlight'));
-            }
-        }
-    }, [highlightText, pageNumber]);
 
     function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
         setNumPages(numPages);
