@@ -73,16 +73,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ open, onClose }) =
 
     return (
         <div className="modal-backdrop">
-            <div className="modal">
-                <h2>Settings</h2>
+            <div className="modal" style={{ padding: '18px 22px', borderRadius: 10, minWidth: 520, maxWidth: 700, width: '90vw', fontSize: '0.97em' }}>
+                <h2 style={{ margin: '0 0 10px 0', fontSize: '1.2em' }}>Settings</h2>
                 {error && <div className="error">{error}</div>}
                 {success && <div className="success">Config updated! Please restart the backend for changes to take effect.</div>}
                 {config ? (
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} style={{ margin: 0 }}>
                         {Object.entries(config).map(([key, value], idx, arr) => (
                             isObjectField(value) || isPromptField(key, value) || isNumberField(key, value) ? (
-                                <div className="settings-entry" key={key}>
-                                    <label style={{ width: '100%' }}>
+                                <div className="settings-entry" key={key} style={{ marginBottom: 10 }}>
+                                    <label style={{ width: '100%', fontWeight: 500, marginBottom: 2 }}>
                                         {key}:
                                         {isObjectField(value) ? (
                                             <>
@@ -90,8 +90,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ open, onClose }) =
                                                     name={key}
                                                     value={JSON.stringify(value, null, 2)}
                                                     onChange={handleChange}
-                                                    rows={7}
-                                                    style={{ width: '100%', fontFamily: 'monospace', marginTop: '0.2em' }}
+                                                    rows={5}
+                                                    style={{ width: '100%', fontFamily: 'monospace', marginTop: '0.15em', fontSize: '0.96em', padding: '5px 7px', borderRadius: 5 }}
                                                 />
                                                 {jsonErrors[key] && <div className="error">{jsonErrors[key]}</div>}
                                             </>
@@ -100,8 +100,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ open, onClose }) =
                                                 name={key}
                                                 value={String(value)}
                                                 onChange={handleChange}
-                                                rows={7}
-                                                style={{ width: '100%', fontFamily: 'monospace', marginTop: '0.2em' }}
+                                                rows={4}
+                                                style={{ width: '100%', fontFamily: 'monospace', marginTop: '0.15em', fontSize: '0.96em', padding: '5px 7px', borderRadius: 5 }}
                                             />
                                         ) : (
                                             <input
@@ -109,27 +109,28 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ open, onClose }) =
                                                 type="number"
                                                 value={Number(value)}
                                                 onChange={handleChange}
-                                                style={{ width: '100%', marginTop: '0.2em' }}
+                                                style={{ width: '100%', marginTop: '0.15em', fontSize: '0.96em', padding: '4px 7px', borderRadius: 5 }}
                                             />
                                         )}
                                     </label>
                                 </div>
                             ) : (
-                                <div className="settings-row" key={key}>
-                                    <label htmlFor={key}>{key}:</label>
+                                <div className="settings-row" key={key} style={{ marginBottom: 8 }}>
+                                    <label htmlFor={key} style={{ fontWeight: 500, marginRight: 6 }}>{key}:</label>
                                     <input
                                         id={key}
                                         name={key}
                                         type="text"
                                         value={String(value)}
                                         onChange={handleChange}
+                                        style={{ fontSize: '0.96em', padding: '4px 7px', borderRadius: 5 }}
                                     />
                                 </div>
                             )
                         ))}
-                        <div style={{ marginTop: '1em' }}>
-                            <button type="submit" disabled={saving}>{saving ? 'Saving...' : 'Save'}</button>
-                            <button type="button" onClick={onClose} style={{ marginLeft: '1em' }}>Close</button>
+                        <div style={{ marginTop: '0.7em', display: 'flex', gap: 8 }}>
+                            <button type="submit" disabled={saving} style={{ fontSize: '0.97em', padding: '5px 16px', borderRadius: 5 }}>{saving ? 'Saving...' : 'Save'}</button>
+                            <button type="button" onClick={onClose} style={{ marginLeft: 0, fontSize: '0.97em', padding: '5px 16px', borderRadius: 5 }}>Close</button>
                         </div>
                     </form>
                 ) : (
