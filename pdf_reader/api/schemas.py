@@ -1,5 +1,9 @@
+from typing import List
 from pydantic import BaseModel
-from typing import List, Dict, Any
+
+from pdf_reader.core.evaluation.datatypes import Evaluation
+from pdf_reader.core.localization.datatypes import Localization
+from pdf_reader.core.retrieval.datatypes import RetrievedDocument
 
 
 class Question(BaseModel):
@@ -9,11 +13,7 @@ class Question(BaseModel):
 
 class Answer(BaseModel):
     """Answer to questions"""
-    # The answer itself
     answer: str
-
-    # The context and metadata of all retrieved chunks
-    context: List[Dict[str, Any]]
-
-    # Where to find the answer
-    relevant_text: Dict[str, Any]
+    context: List[RetrievedDocument]
+    localization: Localization
+    evaluation: Evaluation
