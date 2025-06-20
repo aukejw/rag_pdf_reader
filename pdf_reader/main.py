@@ -1,4 +1,5 @@
 import json
+from langgraph.graph import StateGraph
 from fastapi import FastAPI, UploadFile, File, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
@@ -6,8 +7,11 @@ import shutil
 import tempfile
 
 from pdf_reader import REPO_ROOT
-from pdf_reader.core.search_agent import setup_graph
 from pdf_reader.api.schemas import Question, Answer
+from pdf_reader.core.evaluation.datatypes import Evaluation
+from pdf_reader.core.localization.datatypes import Localization
+from pdf_reader.core.retrieval.datatypes import Context
+from pdf_reader.core.search_agent import DocSearch, State
 
 app = FastAPI()
 
@@ -26,7 +30,9 @@ app.add_middleware(
 with open(REPO_ROOT / "config.json") as f:
     config = json.load(f)
 
-agent, graph = setup_graph(**config)
+agent = DocSearch(**config)
+graph: StateGraph = agent.setup_workflow()
+
 
 
 @app.post("/upload")
@@ -48,18 +54,32 @@ async def upload_pdf(file: UploadFile = File(...)):
 @app.post("/ask", response_model=Answer)
 async def ask_question(question: Question):
     """Ask a question about the uploaded PDF."""
+
+    default_localization = Localization(
+        relevant_text="",
+        page_index=-1,
+        chunk_index=-1,
+    ) 
+
     try:
-        result = graph.invoke({"question": question.text})
+        result: State = graph.invoke({"question": question.text})
+        print(result)
         return Answer(
             answer=result["answer"],
-            relevant_text=result["relevant_text"],
-            context=result["context"],
+            context=list(result["context"]),
+            evaluation=result["evaluation"],
+            localization=result.get("localization", default_localization),
         )
+
     except Exception as e:
         return Answer(
             answer=f"Error: {str(e)}",
-            relevant_text={},
-            context=[],
+            context=Context(),
+            evaluation=Evaluation(
+                is_correct=False,
+                evaluation="",
+            ),
+            localization=default_localization,
         )
 
 
