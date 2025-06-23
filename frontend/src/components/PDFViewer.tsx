@@ -23,6 +23,12 @@ export const PDFViewer: React.FC<PDFViewerProps> = ({ file }) => {
         setNumPages(numPages);
     }
 
+    useEffect(() => {
+        // Reset page and zoom when a new file is loaded
+        setPageNumber(1);
+        setScale(1.0);
+    }, [file]);
+
     if (!file) {
         return <div>Please upload a PDF file</div>;
     }
