@@ -59,25 +59,29 @@ export const App: React.FC = () => {
     return (
         <div className="app">
             <header>
-                <div className="upload-section">
-                    <input
-                        type="file"
-                        accept=".pdf"
-                        onChange={handleFileUpload}
-                        disabled={isUploading}
-                    />
-                    {isUploading && (
-                        <>
-                            <div style={{ width: '100%', height: 4, background: '#e0e7ef', margin: '8px 0', borderRadius: 2, overflow: 'hidden' }}>
-                                <div style={{ width: '100%', height: '100%', background: 'linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%)', animation: 'loading-bar 1s linear infinite' }} />
-                            </div>
-                            <span>Uploading...</span>
-                        </>
-                    )}
-                    {error && <div className="error">{error}</div>}
-                    <button style={{ marginLeft: '1em', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => setSettingsOpen(true)} title="Settings">
-                        <MdSettings size={24} />
-                    </button>
+                <div className="upload-section" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <input
+                            type="file"
+                            accept=".pdf"
+                            onChange={handleFileUpload}
+                            disabled={isUploading}
+                        />
+                        {isUploading && (
+                            <>
+                                <div style={{ width: 120, height: 4, background: '#e0e7ef', margin: '8px 0', borderRadius: 2, overflow: 'hidden' }}>
+                                    <div style={{ width: '100%', height: '100%', background: 'linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%)', animation: 'loading-bar 1s linear infinite' }} />
+                                </div>
+                                <span>Uploading...</span>
+                            </>
+                        )}
+                        {error && <div className="error">{error}</div>}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => setSettingsOpen(true)} title="Settings">
+                            <MdSettings size={24} />
+                        </button>
+                    </div>
                 </div>
             </header>
             <div className="main-layout">
